@@ -68,7 +68,7 @@ function MenuItemCard(props: Props) {
             {props.menuItem.description}
           </p>
           <div className="row text-center">
-            <h4>{props.menuItem.price}</h4>
+            <h4>${props.menuItem.price}</h4>
           </div>
         </div>
       </div>

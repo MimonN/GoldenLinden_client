@@ -1,6 +1,7 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { Footer, Header } from '../Components/Layout';
-import { Home } from '../Pages';
+import { Home, NotFound } from '../Pages';
 
 
 function App() {
@@ -9,7 +10,12 @@ function App() {
   return (
     <div>
       <Header />
-      <Home />
+      <div className='pb-5'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );
