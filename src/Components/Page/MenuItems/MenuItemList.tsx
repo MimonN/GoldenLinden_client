@@ -7,7 +7,7 @@ function MenuItemList() {
   const [menuItems, setMenuItems] = useState<menuItemModel[]>([]);
 
   useEffect(() => {
-    fetch('https://localhost:7054/api/MenuItem')
+    fetch('')
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
