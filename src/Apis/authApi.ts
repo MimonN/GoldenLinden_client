@@ -7,21 +7,21 @@ const authApi = createApi({
   }),
   endpoints: (builder) => ({
     registerUser: builder.mutation({
-      query: ({ userData }) => ({
+      query: (userData) => ({
         url: 'auth/register',
         method: 'POST',
         headers: {
-          ContentType: 'application/json',
+          'Content-type': 'application/json',
         },
         body: userData,
       }),
     }),
     loginUser: builder.mutation({
-      query: ({ userCredentials }) => ({
+      query: (userCredentials) => ({
         url: 'auth/login',
         method: 'POST',
         headers: {
-          ContentType: 'application/json',
+          'Content-type': 'application/json',
         },
         body: userCredentials,
       }),
