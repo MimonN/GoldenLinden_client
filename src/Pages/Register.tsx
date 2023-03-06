@@ -24,6 +24,7 @@ function Register() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    console.log(userInput);
     const response: apiResponse = await registerUser({
       userName: userInput.userName,
       password: userInput.password,
@@ -33,13 +34,10 @@ function Register() {
     if (response.data) {
       console.log(response.data);
     } else if (response.error) {
-      console.log(response.error.data.errorMessages[0]);
+      console.log(response.error.data.errorMessage[0]);
     }
-
     setLoading(false);
   };
-
-
 
   return (
     <div className="container text-center">
