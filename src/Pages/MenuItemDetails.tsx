@@ -9,8 +9,6 @@ import { toastNotify } from '../Helper';
 import { useSelector } from 'react-redux';
 import { RootState } from '../Storage/Redux/store';
 
-// USER ID - c8511786-4f45-4bfa-8616-abb7813ce6b0
-
 function MenuItemDetails() {
   const { menuItemId } = useParams();
   const { data, isLoading } = useGetMenuItemByIdQuery(menuItemId);
@@ -41,7 +39,7 @@ function MenuItemDetails() {
     const response: apiResponse = await updateShoppingCart({
       menuItemId: menuItemId,
       updateQuantityBy: quantity,
-      userId: 'c8511786-4f45-4bfa-8616-abb7813ce6b0',
+      userId: userData.id,
     });
     if (response.data && response.data.isSuccess) {
       toastNotify('Item added to cart successfully!');

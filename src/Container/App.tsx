@@ -12,19 +12,21 @@ import {
   Register,
   ShoppingCart,
 } from '../Pages';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetShoppingCartQuery } from '../Apis/shoppingCartApi';
 import { setShoppingCart } from '../Storage/Redux/shoppingCartSlice';
 import { userModel } from '../Interfaces';
 import jwt_decode from 'jwt-decode';
 import { setLoggedInUser } from '../Storage/Redux/userAuthSlice';
+import { RootState } from '../Storage/Redux/store';
 
 function App() {
   const dispatch = useDispatch();
-
-  const { data, isLoading } = useGetShoppingCartQuery(
-    'c8511786-4f45-4bfa-8616-abb7813ce6b0'
+  const userData: userModel = useSelector(
+    (state: RootState) => state.userAuthStore
   );
+
+  const { data, isLoading } = useGetShoppingCartQuery(userData.id);
 
   useEffect(() => {
     const localToken = localStorage.getItem('token');
