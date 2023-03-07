@@ -59,9 +59,7 @@ function Header() {
                   to="/shoppingCart"
                 >
                   <i className="bi bi-cart"></i>{' '}
-                  {shoppingCartFromStore?.length
-                    ? `(${shoppingCartFromStore.length})`
-                    : ''}
+                  {userData.id && `(${shoppingCartFromStore.length})`}
                 </NavLink>
               </li>
               <li className="nav-item">
@@ -70,7 +68,7 @@ function Header() {
                   aria-current="page"
                   to="/authentication"
                 >
-                 Authentication
+                  Authentication
                 </NavLink>
               </li>
               <li className="nav-item">
@@ -79,7 +77,7 @@ function Header() {
                   aria-current="page"
                   to="/authorization"
                 >
-                 Authorization
+                  Authorization
                 </NavLink>
               </li>
               <li className="nav-item dropdown">
