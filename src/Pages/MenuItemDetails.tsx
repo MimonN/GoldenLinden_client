@@ -4,6 +4,8 @@ import { useGetMenuItemByIdQuery } from '../Apis/menuItemApi';
 import { useNavigate } from 'react-router-dom';
 import { useUpdateShoppingCartMutation } from '../Apis/shoppingCartApi';
 import { MainLoader, MiniLoader } from '../Components/Page/Common';
+import { apiResponse } from '../Interfaces';
+import { toastNotify } from '../Helper';
 
 // USER ID - c8511786-4f45-4bfa-8616-abb7813ce6b0
 
@@ -27,12 +29,14 @@ function MenuItemDetails() {
   const handleAddToCart = async (menuItemId: number) => {
     setIsAddingToCart(true);
 
-    const response = await updateShoppingCart({
+    const response: apiResponse = await updateShoppingCart({
       menuItemId: menuItemId,
       updateQuantityBy: quantity,
       userId: 'c8511786-4f45-4bfa-8616-abb7813ce6b0',
     });
-
+    if (response.data && response.data.isSuccess) {
+      toastNotify('Item added to cart successfully!');
+    }
     setIsAddingToCart(false);
   };
 
