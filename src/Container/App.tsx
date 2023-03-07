@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Footer, Header } from '../Components/Layout';
 import {
+  AccessDenied,
+  AuthenticationTest,
+  AuthenticationTestAdmin,
   Home,
   Login,
   MenuItemDetails,
@@ -25,11 +28,11 @@ function App() {
 
   useEffect(() => {
     const localToken = localStorage.getItem('token');
-    if(localToken) {
+    if (localToken) {
       const { fullName, id, email, role }: userModel = jwt_decode(localToken);
-      dispatch(setLoggedInUser({fullName, id, email, role}));
+      dispatch(setLoggedInUser({ fullName, id, email, role }));
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (!isLoading) {
@@ -51,6 +54,9 @@ function App() {
           <Route path="/shoppingCart" element={<ShoppingCart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/authentication" element={<AuthenticationTest />} />
+          <Route path="/authorization" element={<AuthenticationTestAdmin />} />
+          <Route path="/accessDenied" element={<AccessDenied />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
