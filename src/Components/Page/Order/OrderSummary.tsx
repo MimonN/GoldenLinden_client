@@ -1,6 +1,6 @@
 import React from 'react';
 import { cartItemModel } from '../../../Interfaces';
-import { orderSummaryProps } from './ordersSummaryprops';
+import { orderSummaryProps } from './orderSummaryProps';
 
 function OrderSummary({ data, userInput }: orderSummaryProps) {
   return (
