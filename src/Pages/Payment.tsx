@@ -18,12 +18,12 @@ function Payment() {
     clientSecret: apiResult.clientSecret,
   };
   return (
-    <div className='d-flex justify-content-center'>
+    <div className="d-flex justify-content-center">
       <Elements stripe={stripePromise} options={options}>
         <div className="container m-5 p-5">
           <div className="row">
             <div className="col-md-7">
-              <OrderSummary />
+              <OrderSummary data={apiResult} userInput={userInput} />
             </div>
             <div className="col-md-5">
               <PaymentForm />
