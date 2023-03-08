@@ -3,8 +3,8 @@ import cartItemModel from './cartItemModel';
 import shoppingCartModel from './shoppingCartModel';
 import userModel from './userModel';
 import apiResponse from './apiResponse';
-import orderDetail from './orderDetail';
-import orderHeader from './orderHeader';
+import orderDetailModel from './orderDetailModel';
+import orderHeaderModel from './orderHeaderModel';
 
 export type {
   menuItemModel,
@@ -12,6 +12,6 @@ export type {
   shoppingCartModel,
   userModel,
   apiResponse,
-  orderDetail,
-  orderHeader,
+  orderDetailModel,
+  orderHeaderModel,
 };
