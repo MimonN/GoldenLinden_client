@@ -16,6 +16,7 @@ const orderApi = createApi({
         },
         body: orderDetails,
       }),
+      invalidatesTags: ['Orders'],
     }),
     getAllOrders: builder.query({
       query: (userId) => ({
@@ -35,5 +36,9 @@ const orderApi = createApi({
   }),
 });
 
-export const { useCreateOrderMutation, useGetAllOrdersQuery, useGetOrderDetailsQuery } = orderApi;
+export const {
+  useCreateOrderMutation,
+  useGetAllOrdersQuery,
+  useGetOrderDetailsQuery,
+} = orderApi;
 export default orderApi;
