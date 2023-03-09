@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { inputHelper } from '../../Helper';
+import { inputHelper, toastNotify } from '../../Helper';
 
 const menuItemData = {
   name: '',
@@ -10,15 +10,51 @@ const menuItemData = {
 };
 
 function MenuItemUpsert() {
+  const [imageToBeStored, setImageToBeStored] = useState<any>();
+  const [imageToBeDisplay, setImageToBeDisplay] = useState<string>('');
   const [menuItemInputs, setMenuItemInputs] = useState(menuItemData);
 
   const handleMenuItemInput = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const tempData = inputHelper(e, menuItemInputs);
     setMenuItemInputs(tempData);
   };
-  
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const imgType = file.type.split('/')[1];
+      const validImgtypes = ['jpeg', 'jpg', 'png'];
+
+      const isImageTypeValid = validImgtypes.filter((e) => {
+        return e === imgType;
+      });
+
+      if (file.size > 1000 * 1024) {
+        setImageToBeStored('');
+        toastNotify('File must be less then 1 MB', 'error');
+        return;
+      } else if (isImageTypeValid.length === 0) {
+        setImageToBeStored('');
+        toastNotify('File must be in jpeg, jpg or png', 'error');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      setImageToBeStored(file);
+      reader.onload = (e) => {
+        console.log(e);
+        const imgUrl = e.target?.result as string;
+        console.log(imgUrl);
+        setImageToBeDisplay(imgUrl);
+      }
+    }
+  };
+
   return (
     <div className="container border mt-5 p-5">
       <h3 className="offset-2 px-2 text-success">Add Product</h3>
@@ -30,14 +66,14 @@ function MenuItemUpsert() {
               className="form-control"
               placeholder="Enter Name"
               required
-              name='name'
+              name="name"
               value={menuItemInputs.name}
               onChange={handleMenuItemInput}
             />
             <textarea
               className="form-control mt-3"
               placeholder="Enter Description"
-              name='description'
+              name="description"
               rows={10}
               value={menuItemInputs.description}
               onChange={handleMenuItemInput}
@@ -46,7 +82,7 @@ function MenuItemUpsert() {
               type="text"
               className="form-control mt-3"
               placeholder="Enter Special Tag"
-              name='specialTag'
+              name="specialTag"
               value={menuItemInputs.specialTag}
               onChange={handleMenuItemInput}
             />
@@ -54,7 +90,7 @@ function MenuItemUpsert() {
               type="text"
               className="form-control mt-3"
               placeholder="Enter Category"
-              name='category'
+              name="category"
               value={menuItemInputs.category}
               onChange={handleMenuItemInput}
             />
@@ -63,11 +99,15 @@ function MenuItemUpsert() {
               className="form-control mt-3"
               required
               placeholder="Enter Price"
-              name='price'
+              name="price"
               value={menuItemInputs.price}
               onChange={handleMenuItemInput}
             />
-            <input type="file" className="form-control mt-3" />
+            <input
+              type="file"
+              onChange={handleFileChange}
+              className="form-control mt-3"
+            />
             <div className="text-center">
               <button
                 type="submit"
@@ -80,7 +120,7 @@ function MenuItemUpsert() {
           </div>
           <div className="col-md-5 text-center">
             <img
-              src="https://via.placeholder.com/150"
+              src={imageToBeDisplay}
               style={{ width: '100%', borderRadius: '30px' }}
               alt=""
             />
