@@ -27,7 +27,6 @@ function Register() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    console.log(userInput);
     const response: apiResponse = await registerUser({
       userName: userInput.userName,
       password: userInput.password,
