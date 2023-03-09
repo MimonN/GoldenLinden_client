@@ -28,7 +28,7 @@ const menuItemApi = createApi({
       invalidatesTags: ['MenuItems'],
     }),
     createMenuItem: builder.mutation({
-      query: ({ data }) => ({
+      query: ( data ) => ({
         url: 'menuitem/',
         method: 'POST',
         body: data,

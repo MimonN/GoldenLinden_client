@@ -50,7 +50,7 @@ function MenuItemCard(props: Props) {
             <Link to={`/menuItemDetails/${props.menuItem.id}`}>
               <img
                 src={
-                  `https://localhost:7054/Resourses/Images/` +
+                  `https://localhost:7054/` +
                   props.menuItem.image
                 }
                 style={{ borderRadius: '50%' }}

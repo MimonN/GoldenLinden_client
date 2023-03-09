@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCreateMenuItemMutation } from '../../Apis/menuItemApi';
 import { inputHelper, toastNotify } from '../../Helper';
 
 const menuItemData = {
@@ -10,9 +12,12 @@ const menuItemData = {
 };
 
 function MenuItemUpsert() {
-  const [imageToBeStored, setImageToBeStored] = useState<any>();
-  const [imageToBeDisplay, setImageToBeDisplay] = useState<string>('');
+  const [imageToStore, setImageToStore] = useState<any>();
+  const [imageToDisplay, setImageToDisplay] = useState<string>('');
   const [menuItemInputs, setMenuItemInputs] = useState(menuItemData);
+  const [loading, setLoading] = useState(false);
+  const [createMenuItem] = useCreateMenuItemMutation();
+  const navigate = useNavigate();
 
   const handleMenuItemInput = (
     e: React.ChangeEvent<
@@ -34,31 +39,56 @@ function MenuItemUpsert() {
       });
 
       if (file.size > 1000 * 1024) {
-        setImageToBeStored('');
+        setImageToStore('');
         toastNotify('File must be less then 1 MB', 'error');
         return;
       } else if (isImageTypeValid.length === 0) {
-        setImageToBeStored('');
+        setImageToStore('');
         toastNotify('File must be in jpeg, jpg or png', 'error');
         return;
       }
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      setImageToBeStored(file);
+      setImageToStore(file);
       reader.onload = (e) => {
-        console.log(e);
         const imgUrl = e.target?.result as string;
-        console.log(imgUrl);
-        setImageToBeDisplay(imgUrl);
-      }
+        setImageToDisplay(imgUrl);
+      };
     }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!imageToStore) {
+      toastNotify('Please upload an image', 'error');
+      setLoading(false);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('Name', menuItemInputs.name);
+    formData.append('Description', menuItemInputs.description);
+    formData.append('SpecialTag', menuItemInputs.specialTag);
+    formData.append('Category', menuItemInputs.category);
+    formData.append('Price', menuItemInputs.price);
+    formData.append('File', imageToStore);
+
+    const response = await createMenuItem(formData);
+    if (response) {
+      setLoading(false);
+      navigate('/menuItem/menuitemlist');
+    }
+
+    setLoading(false);
   };
 
   return (
     <div className="container border mt-5 p-5">
       <h3 className="offset-2 px-2 text-success">Add Product</h3>
-      <form method="post" encType="multipart/form-data">
+      <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
         <div className="row mt-3">
           <div className="col-md-5 offset-2">
             <input
@@ -120,7 +150,7 @@ function MenuItemUpsert() {
           </div>
           <div className="col-md-5 text-center">
             <img
-              src={imageToBeDisplay}
+              src={imageToDisplay}
               style={{ width: '100%', borderRadius: '30px' }}
               alt=""
             />

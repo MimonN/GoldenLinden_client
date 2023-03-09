@@ -38,7 +38,7 @@ function MenuItemList() {
                   <div className="col-1">
                     <img
                       src={
-                        `https://localhost:7054/Resourses/Images/` +
+                        `https://localhost:7054/` +
                         menuItem.image
                       }
                       alt="no content"
