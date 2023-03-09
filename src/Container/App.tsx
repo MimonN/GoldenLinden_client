@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Footer, Header } from '../Components/Layout';
 import {
   AccessDenied,
+  AllOrders,
   AuthenticationTest,
   AuthenticationTestAdmin,
   Home,
@@ -66,6 +67,7 @@ function App() {
           <Route path="order/orderconfirmed/:id" element={<OrderConfirmed />} />
           <Route path="order/myorders" element={<MyOrders />} />
           <Route path="order/orderdetails/:id" element={<OrderDetails />} />
+          <Route path="order/allOrders" element={<AllOrders />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
