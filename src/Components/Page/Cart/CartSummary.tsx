@@ -66,7 +66,7 @@ function CartSummary() {
           <div className="p-3">
             <img
               src={
-                `https://localhost:7054/Resourses/Images/` +
+                `https://localhost:7054/` +
                 cartItem.menuItem?.image
               }
               alt=""
