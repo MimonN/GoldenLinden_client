@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useCreateMenuItemMutation } from '../../Apis/menuItemApi';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  useCreateMenuItemMutation,
+  useGetMenuItemByIdQuery,
+} from '../../Apis/menuItemApi';
 import { MainLoader } from '../../Components/Page/Common';
 import { inputHelper, toastNotify } from '../../Helper';
 
@@ -13,12 +16,30 @@ const menuItemData = {
 };
 
 function MenuItemUpsert() {
+  const { id } = useParams();
   const [imageToStore, setImageToStore] = useState<any>();
   const [imageToDisplay, setImageToDisplay] = useState<string>('');
   const [menuItemInputs, setMenuItemInputs] = useState(menuItemData);
   const [loading, setLoading] = useState(false);
   const [createMenuItem] = useCreateMenuItemMutation();
   const navigate = useNavigate();
+
+  const { data } = useGetMenuItemByIdQuery(id);
+
+  useEffect(() => {
+    console.log(data);
+    if (data && data.result) {
+      const tempData = {
+        name: data.result.name,
+        description: data.result.description,
+        specialTag: data.result.specialTag,
+        category: data.result.category,
+        price: data.result.price,
+      };
+      setMenuItemInputs(tempData);
+      setImageToDisplay(data.result.image);
+    }
+  }, [data]);
 
   const handleMenuItemInput = (
     e: React.ChangeEvent<
@@ -161,7 +182,7 @@ function MenuItemUpsert() {
           </div>
           <div className="col-md-5 text-center">
             <img
-              src={imageToDisplay}
+              src={`https://localhost:7054/` + imageToDisplay}
               style={{ width: '100%', borderRadius: '30px' }}
               alt=""
             />

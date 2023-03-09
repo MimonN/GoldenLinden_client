@@ -118,7 +118,7 @@ function MenuItemDetails() {
           <div className="col-5">
             <img
               src={
-                `https://localhost:7054/Resourses/Images/` + data.result?.image
+                `https://localhost:7054/` + data.result?.image
               }
               width="100%"
               style={{ borderRadius: '50%' }}
