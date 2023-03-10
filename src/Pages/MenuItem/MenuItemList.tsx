@@ -67,13 +67,13 @@ function MenuItemList() {
                   <div className="col-1">{menuItem.price}</div>
                   <div className="col-2">{menuItem.specialTag}</div>
                   <div className="col-1">
-                    <button className="btn btn-success">
-                      <i
-                        className="bi bi-pencil-fill"
-                        onClick={() =>
-                          navigate('/menuitem/menuitemupsert/' + menuItem.id)
-                        }
-                      ></i>
+                    <button
+                      className="btn btn-success"
+                      onClick={() =>
+                        navigate('/menuitem/menuitemupsert/' + menuItem.id)
+                      }
+                    >
+                      <i className="bi bi-pencil-fill"></i>
                     </button>
                     <button
                       className="btn btn-danger mx-2"

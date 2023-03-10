@@ -16,5 +16,6 @@ export enum SD_Categories {
   APPETIZER = 'Appetizer',
   ENTREE = 'Entree',
   DESSERT = 'Dessert',
-  BEVERAGES = 'Beverages',
+  SOUP = 'Soup',
+  SALAD = 'Salad',
 }
