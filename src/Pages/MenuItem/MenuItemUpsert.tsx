@@ -37,7 +37,6 @@ function MenuItemUpsert() {
   const { data } = useGetMenuItemByIdQuery(id);
 
   useEffect(() => {
-    console.log(data);
     if (data && data.result) {
       const tempData = {
         name: data.result.name,
@@ -159,7 +158,7 @@ function MenuItemUpsert() {
               className="form-control mt-3"
               placeholder="Enter Special Tag"
               name="specialTag"
-              value={menuItemInputs.specialTag}
+              value={menuItemInputs.specialTag || ''}
               onChange={handleMenuItemInput}
             />
             <select
@@ -208,7 +207,7 @@ function MenuItemUpsert() {
           </div>
           <div className="col-md-5 text-center">
             <img
-              src={`https://localhost:7054/` + imageToDisplay}
+              src={`https://localhost:7054/${imageToDisplay}`}
               style={{ width: '100%', borderRadius: '30px' }}
               alt=""
             />

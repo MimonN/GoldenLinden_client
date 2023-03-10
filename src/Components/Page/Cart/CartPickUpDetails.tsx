@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useInitialPaymentMutation } from '../../../Apis/paymentApi';
 import { inputHelper } from '../../../Helper';
@@ -35,12 +35,20 @@ function CartPickUpDetails() {
     setUserInput(tempData);
   };
 
+  useEffect(() => {
+    setUserInput({
+      name: userData.fullName,
+      email: userData.email,
+      phoneNumber: '',
+    });
+  }, [userData]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
     const { data }: apiResponse = await initiatePayment(userData.id);
-    
+
     navigate('/payment', {
       state: { apiResult: data?.result, userInput },
     });
