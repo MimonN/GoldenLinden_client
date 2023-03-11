@@ -4,6 +4,10 @@ const orderApi = createApi({
   reducerPath: 'orderApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://localhost:7054/api/',
+    prepareHeaders: (headers: Headers, api) => {
+      const token = localStorage.getItem('token');
+      token && headers.append('Authorization', 'Bearer ' + token);
+    },
   }),
   tagTypes: ['Orders'],
   endpoints: (builder) => ({
@@ -51,6 +55,6 @@ export const {
   useCreateOrderMutation,
   useGetAllOrdersQuery,
   useGetOrderDetailsQuery,
-  useUpdateOrderHeaderMutation
+  useUpdateOrderHeaderMutation,
 } = orderApi;
 export default orderApi;
