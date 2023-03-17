@@ -56,7 +56,7 @@ function MenuItemList() {
                 <div key={menuItem.id} className="row border">
                   <div className="col-1">
                     <img
-                      src={`https://localhost:7054/` + menuItem.image}
+                      src={`${process.env.REACT_APP_API_URL}${menuItem.image}`}
                       alt="no content"
                       style={{ width: '100%', maxWidth: '120px' }}
                     />

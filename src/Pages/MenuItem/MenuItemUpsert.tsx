@@ -208,7 +208,7 @@ function MenuItemUpsert() {
           </div>
           <div className="col-md-5 text-center">
             <img
-              src={`https://localhost:7054/${imageToDisplay}`}
+              src={`${process.env.REACT_APP_API_URL}${imageToDisplay}`}
               style={{ width: '100%', borderRadius: '30px' }}
               alt=""
             />

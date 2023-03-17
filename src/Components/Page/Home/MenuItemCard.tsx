@@ -49,10 +49,7 @@ function MenuItemCard(props: Props) {
           <div className="row col-10 offset-1 p-4">
             <Link to={`/menuItemDetails/${props.menuItem.id}`}>
               <img
-                src={
-                  `https://localhost:7054/` +
-                  props.menuItem.image
-                }
+                src={process.env.REACT_APP_API_URL + props.menuItem.image}
                 style={{ borderRadius: '50%' }}
                 alt=""
                 className="w-100 mt-5 image-box"

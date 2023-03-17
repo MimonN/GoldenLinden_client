@@ -66,8 +66,7 @@ function CartSummary() {
           <div className="p-3">
             <img
               src={
-                `https://localhost:7054/` +
-                cartItem.menuItem?.image
+                `${process.env.REACT_APP_API_URL}${cartItem.menuItem?.image}`
               }
               alt=""
               width={'120px'}
