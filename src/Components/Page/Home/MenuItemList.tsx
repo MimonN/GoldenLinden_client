@@ -1,17 +1,17 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useGetMenuItemsQuery } from "../../../Apis/menuItemApi";
-import { menuItemModel } from "../../../Interfaces";
-import MenuItemCard from "./MenuItemCard";
-import { useDispatch, useSelector } from "react-redux";
-import { setMenuItem } from "../../../Storage/Redux/menuItemSlice";
-import { MainLoader } from "../Common";
-import { RootState } from "../../../Storage/Redux/store";
-import { SD_SortTypes } from "../../../Utility/SD";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useGetMenuItemsQuery } from '../../../Apis/menuItemApi';
+import { menuItemModel } from '../../../Interfaces';
+import MenuItemCard from './MenuItemCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMenuItem } from '../../../Storage/Redux/menuItemSlice';
+import { MainLoader } from '../Common';
+import { RootState } from '../../../Storage/Redux/store';
+import { SD_SortTypes } from '../../../Utility/SD';
 function MenuItemList() {
   const [menuItems, setMenuItems] = useState<menuItemModel[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [categoryList, setCategoryList] = useState([""]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [categoryList, setCategoryList] = useState(['']);
   const dispatch = useDispatch();
   const [sortName, setSortName] = useState(SD_SortTypes.NAME_A_Z);
   const { data, isLoading } = useGetMenuItemsQuery(null);
@@ -38,16 +38,20 @@ function MenuItemList() {
 
   useEffect(() => {
     if (!isLoading) {
-      dispatch(setMenuItem(data.result));
-      setMenuItems(data.result);
-      const tempCategoryList = ["All"];
-      data.result.forEach((item: menuItemModel) => {
-        if (tempCategoryList.indexOf(item.category) === -1) {
-          tempCategoryList.push(item.category);
-        }
-      });
+      try {
+        dispatch(setMenuItem(data.result));
+        setMenuItems(data.result);
+        const tempCategoryList = ['All'];
+        data.result.forEach((item: menuItemModel) => {
+          if (tempCategoryList.indexOf(item.category) === -1) {
+            tempCategoryList.push(item.category);
+          }
+        });
 
-      setCategoryList(tempCategoryList);
+        setCategoryList(tempCategoryList);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }, [isLoading]);
 
@@ -62,13 +66,13 @@ function MenuItemList() {
   };
 
   const handleCategoryClick = (i: number) => {
-    const buttons = document.querySelectorAll(".custom-buttons");
+    const buttons = document.querySelectorAll('.custom-buttons');
     let localCategory;
     buttons.forEach((button, index) => {
       if (index === i) {
-        button.classList.add("active");
+        button.classList.add('active');
         if (index === 0) {
-          localCategory = "All";
+          localCategory = 'All';
         } else {
           localCategory = categoryList[index];
         }
@@ -76,7 +80,7 @@ function MenuItemList() {
         const tempArray = handleFilters(sortName, localCategory, searchValue);
         setMenuItems(tempArray);
       } else {
-        button.classList.remove("active");
+        button.classList.remove('active');
       }
     });
   };
@@ -87,7 +91,7 @@ function MenuItemList() {
     search: string
   ) => {
     let tempArray =
-      category === "All"
+      category === 'All'
         ? [...data.result]
         : data.result.filter(
             (item: menuItemModel) =>
@@ -138,12 +142,12 @@ function MenuItemList() {
           {categoryList.map((categoryName, index) => (
             <li
               className="nav-item"
-              style={{ ...(index === 0 && { marginLeft: "auto" }) }}
+              style={{ ...(index === 0 && { marginLeft: 'auto' }) }}
               key={index}
             >
               <button
                 className={`nav-link p-0 pb-2 custom-buttons fs-5 ${
-                  index === 0 && "active"
+                  index === 0 && 'active'
                 } `}
                 onClick={() => handleCategoryClick(index)}
               >
@@ -151,7 +155,7 @@ function MenuItemList() {
               </button>
             </li>
           ))}
-          <li className="nav-item dropdown" style={{ marginLeft: "auto" }}>
+          <li className="nav-item dropdown" style={{ marginLeft: 'auto' }}>
             <div
               className="nav-link dropdown-toggle text-dark fs-6 border"
               role="button"
