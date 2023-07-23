@@ -161,7 +161,7 @@ function MenuItemList() {
           <div className="d-flex align-items-center">
             <li className="nav-item dropdown" style={{ marginLeft: 'auto' }}>
               <div
-                className="nav-link dropdown-toggle text-dark fs-6 border"
+                className="nav-link dropdown-toggle text-white fs-6 border bg-primary"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
