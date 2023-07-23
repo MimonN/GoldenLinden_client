@@ -50,8 +50,8 @@ function MenuItemDetails() {
   return (
     <div className="container pt-4 pt-md-5">
       {!isLoading ? (
-        <div className="row">
-          <div className="col-7">
+        <div className="row flex-column-reverse flex-md-row text-center">
+          <div className="col-12 col-md-7 my-auto">
             <h2 className="text-success">{data.result?.name}</h2>
             <span>
               <span
@@ -89,7 +89,7 @@ function MenuItemDetails() {
                 style={{ fontSize: '25px', cursor: 'pointer' }}
               ></i>
             </span>
-            <div className="row pt-4">
+            <div className="row pt-4 d-flex justify-content-center">
               <div className="col-5">
                 {isAddingToCart ? (
                   <button disabled className="btn btn-success form-control">
@@ -105,7 +105,7 @@ function MenuItemDetails() {
                 )}
               </div>
 
-              <div className="col-5 ">
+              <div className="col-5">
                 <button
                   className="btn btn-secondary form-control"
                   onClick={() => navigate(-1)}
@@ -115,13 +115,11 @@ function MenuItemDetails() {
               </div>
             </div>
           </div>
-          <div className="col-5">
+          <div className="col-6 col-md-5 offset-3 offset-md-0 pb-3">
             <img
-              src={
-                `${process.env.REACT_APP_API_URL}${data.result?.image}`
-              }
+              src={`${process.env.REACT_APP_API_URL}${data.result?.image}`}
               width="100%"
-              style={{ borderRadius: '50%' }}
+              style={{ borderRadius: '10%' }}
               alt="No content"
             ></img>
           </div>

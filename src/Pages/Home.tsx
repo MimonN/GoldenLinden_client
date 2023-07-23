@@ -6,7 +6,7 @@ function Home() {
   return (
     <div>
       <Banner />
-      <div className='container p-2'>
+      <div className='container d-flex justify-content-center'>
         <MenuItemList />
       </div>
     </div>

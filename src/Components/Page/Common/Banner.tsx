@@ -17,8 +17,8 @@ function Banner() {
       <div
         className="m-auto d-flex align-items-center"
         style={{
-          width: '400px',
-          height: '50vh',
+          width: '350px',
+          height: '30vh',
         }}
       >
         <div className="d-flex align-items-center" style={{ width: '100%' }}>

@@ -11,38 +11,38 @@ function OrderList({ isLoading, orderData }: OrderListProps) {
     <>
       {isLoading && <MainLoader />}
       {!isLoading && (
-        <div className="table p-5">
+        <div className="table p-2 p-md-5">
           <h1 className="text-success">Orders List</h1>
           <div className="p-2">
             <div className="row border">
-              <div className="col-1">ID</div>
-              <div className="col-2">Name</div>
-              <div className="col-2">Phone</div>
-              <div className="col-1">Total</div>
-              <div className="col-1">Items</div>
-              <div className="col-2">Date</div>
-              <div className="col-2">Status</div>
-              <div className="col-1"></div>
+              <div className="col">ID</div>
+              <div className="col d-none d-md-flex">Name</div>
+              <div className="col d-none d-md-flex">Phone</div>
+              <div className="col d-none d-md-flex">Total</div>
+              <div className="col d-none d-md-flex">Items</div>
+              <div className="col">Date</div>
+              <div className="col">Status</div>
+              <div className="col"></div>
             </div>
 
             {orderData.map((orderItem: orderHeaderModel) => {
               const badgeColor = getStatusColor(orderItem.status!);
               return (
                 <div className="row border" key={orderItem.orderHeaderId}>
-                  <div className="col-1">{orderItem.orderHeaderId}</div>
-                  <div className="col-2">{orderItem.pickupName}</div>
-                  <div className="col-2">{orderItem.pickupPhoneNumber}</div>
-                  <div className="col-1">
+                  <div className="col">{orderItem.orderHeaderId}</div>
+                  <div className="col d-none d-md-flex">{orderItem.pickupName}</div>
+                  <div className="col d-none d-md-flex">{orderItem.pickupPhoneNumber}</div>
+                  <div className="col d-none d-md-flex">
                     ${orderItem.orderTotal!.toFixed(2)}
                   </div>
-                  <div className="col-1">{orderItem.totalItems}</div>
-                  <div className="col-2">
+                  <div className="col d-none d-md-flex">{orderItem.totalItems}</div>
+                  <div className="col">
                     {new Date(orderItem.orderDate!).toLocaleDateString()}
                   </div>
-                  <div className="col-2">
+                  <div className="col">
                     <span className={`badge bg-${badgeColor}`}>{orderItem.status}</span>
                   </div>
-                  <div className="col-1">
+                  <div className="col">
                     <button
                       className="btn btn-success"
                       onClick={() =>

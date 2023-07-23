@@ -40,22 +40,26 @@ function MenuItemCard(props: Props) {
   };
 
   return (
-    <div className="col-md-4 col-12 p-4">
+    <div className="col-md-6 col-lg-4 col-sm-12 pt-3 d-flex align-items-stretch">
       <div
         className="card"
         style={{ boxShadow: '0 1px 7px 0 rgb(0 0 0 / 50%)' }}
       >
-        <div className="card-body pt-2">
-          <div className="row col-10 offset-1 p-4">
-            <Link to={`/menuItemDetails/${props.menuItem.id}`}>
-              <img
-                src={process.env.REACT_APP_API_URL + props.menuItem.image}
-                style={{ borderRadius: '50%' }}
-                alt=""
-                className="w-100 mt-5 image-box"
-              />
-            </Link>
-          </div>
+        <div className="card-body" style={{ paddingTop: '60px' }}>
+          <Link
+            to={`/menuItemDetails/${props.menuItem.id}`}
+            className="d-flex justify-content-center"
+          >
+            <img
+              src={process.env.REACT_APP_API_URL + props.menuItem.image}
+              style={{
+                borderRadius: '10%',
+                maxHeight: '220px',
+              }}
+              alt=""
+              className="col-12 w-auto image-box"
+            />
+          </Link>
 
           {props.menuItem.specialTag &&
             props.menuItem.specialTag.length > 0 && (
@@ -96,7 +100,7 @@ function MenuItemCard(props: Props) {
           )}
 
           <div className="text-center">
-            <p className="card-title m-0 text-success fs-3">
+            <p className="card-title m-0 text-success fs-3 d-flex align-items-center justify-content-center">
               <Link
                 to={`/menuItemDetails/${props.menuItem.id}`}
                 style={{ textDecoration: 'none', color: 'green' }}
@@ -104,7 +108,7 @@ function MenuItemCard(props: Props) {
                 {props.menuItem.name}
               </Link>
             </p>
-            <p className="badge bg-secondary" style={{ fontSize: '12px' }}>
+            <p className="badge bg-secondary my-2" style={{ fontSize: '12px' }}>
               {props.menuItem.category}
             </p>
           </div>
@@ -112,7 +116,7 @@ function MenuItemCard(props: Props) {
             {props.menuItem.description}
           </p>
           <div className="row text-center">
-            <h4>${props.menuItem.price}</h4>
+            <h4 className='my-auto'>${props.menuItem.price}</h4>
           </div>
         </div>
       </div>

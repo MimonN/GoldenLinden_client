@@ -10,7 +10,7 @@ import { RootState } from '../../../Storage/Redux/store';
 import { SD_SortTypes } from '../../../Utility/SD';
 function MenuItemList() {
   const [menuItems, setMenuItems] = useState<menuItemModel[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('Show All');
   const [categoryList, setCategoryList] = useState(['']);
   const dispatch = useDispatch();
   const [sortName, setSortName] = useState(SD_SortTypes.NAME_A_Z);
@@ -41,7 +41,7 @@ function MenuItemList() {
       try {
         dispatch(setMenuItem(data.result));
         setMenuItems(data.result);
-        const tempCategoryList = ['All'];
+        const tempCategoryList = ['Show All'];
         data.result.forEach((item: menuItemModel) => {
           if (tempCategoryList.indexOf(item.category) === -1) {
             tempCategoryList.push(item.category);
@@ -72,7 +72,7 @@ function MenuItemList() {
       if (index === i) {
         button.classList.add('active');
         if (index === 0) {
-          localCategory = 'All';
+          localCategory = 'Show All';
         } else {
           localCategory = categoryList[index];
         }
@@ -91,7 +91,7 @@ function MenuItemList() {
     search: string
   ) => {
     let tempArray =
-      category === 'All'
+      category === 'Show All'
         ? [...data.result]
         : data.result.filter(
             (item: menuItemModel) =>
@@ -136,53 +136,60 @@ function MenuItemList() {
   }
 
   return (
-    <div className="container row">
+    <div className="container row d-flex justify-content-center">
       <div className="my-3">
+        {/* Sorting buttons */}
         <ul className="nav w-100 d-flex justify-content-center">
           {categoryList.map((categoryName, index) => (
-            <li
-              className="nav-item"
-              style={{ ...(index === 0 && { marginLeft: 'auto' }) }}
-              key={index}
-            >
-              <button
-                className={`nav-link p-0 pb-2 custom-buttons fs-5 ${
-                  index === 0 && 'active'
-                } `}
-                onClick={() => handleCategoryClick(index)}
+            <div className="d-flex align-items-center" key={index}>
+              <li
+                className="nav-item"
+                style={{ ...(index === 0 && { marginLeft: 'auto' }) }}
               >
-                {categoryName}
-              </button>
-            </li>
-          ))}
-          <li className="nav-item dropdown" style={{ marginLeft: 'auto' }}>
-            <div
-              className="nav-link dropdown-toggle text-dark fs-6 border"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {sortName}
-            </div>
-            <ul className="dropdown-menu">
-              {sortOptions.map((sortType, index) => (
-                <li
-                  key={index}
-                  className="dropdown-item"
-                  onClick={() => handleSortClick(index)}
+                <button
+                  className={`nav-link px-2 custom-buttons ${
+                    index === 0 && 'active'
+                  } `}
+                  onClick={() => handleCategoryClick(index)}
                 >
-                  {sortType}
-                </li>
-              ))}
-            </ul>
-          </li>
+                  {categoryName}
+                </button>
+              </li>
+            </div>
+          ))}
+          {/* Sorting dropdown */}
+          <div className="d-flex align-items-center">
+            <li className="nav-item dropdown" style={{ marginLeft: 'auto' }}>
+              <div
+                className="nav-link dropdown-toggle text-dark fs-6 border"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {sortName}
+              </div>
+              <ul className="dropdown-menu">
+                {sortOptions.map((sortType, index) => (
+                  <li
+                    key={index}
+                    className="dropdown-item" style={{cursor: 'pointer'}}
+                    onClick={() => handleSortClick(index)}
+                  >
+                    {sortType}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          </div>
         </ul>
       </div>
 
-      {menuItems.length > 0 &&
-        menuItems.map((menuItem: menuItemModel, index: number) => (
-          <MenuItemCard menuItem={menuItem} key={index} />
-        ))}
+      <div className="row d-flex justify-content-center">
+        {menuItems.length > 0 &&
+          menuItems.map((menuItem: menuItemModel, index: number) => (
+            <MenuItemCard menuItem={menuItem} key={index} />
+          ))}
+      </div>
     </div>
   );
 }
